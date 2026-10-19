@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Thi TN THPTQG cùng Chiikawa 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pastel-sky': '#E0F2FE',
+                        'pastel-lavender': '#E9D5FF',
+                        'pastel-pink': '#FCE7F3',
+                        'pastel-cream': '#FEF3C7',
+                        'pastel-mint': '#D1FAE5',
+                        'brand-blue': '#0284C7',
+                        'brand-purple': '#7E22CE',
+                        'brand-pink': '#DB2777',
+                    },
+                    fontFamily: {
+                        sans: ['Quicksand', 'Nunito', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'clay': '0 10px 25px -5px rgba(236, 72, 153, 0.15), 0 8px 10px -6px rgba(236, 72, 153, 0.1)',
+                        'clay-card': '0 8px 20px rgba(0, 0, 0, 0.04), inset 0 2px 4px rgba(255, 255, 255, 0.8)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Quicksand -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #FAF5FF;
+            color: #1E293B;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .clay-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .clay-btn:hover {
+            transform: translateY(-2px);
+        }
+        .clay-btn:active {
+            transform: translateY(1px);
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-[#FAF5FF] text-slate-800 antialiased min-h-screen flex flex-col selection:bg-pink-200 selection:text-pink-800">
+
+    <header class="fixed top-0 left-0 right-0 z-50 glass-header border-b border-pink-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
+                <!-- THAY ĐỔI ĐƯỜNG DẪN ẢNH LOGO TẠI SRC -->
+                <img src="https://cdn.phototourl.com/member/2026-10-19-29e84aae-f692-4bca-afc0-d7d802e3f935.png" alt="Logo Chiikawa" onerror="this.onerror=null; this.src='https://placehold.co/100x100/fce7f3/db2777?text=Chiikawa';" class="h-12 w-12 rounded-full object-cover border-2 border-pink-300 shadow-md transform hover:scale-105 transition-transform">
+                <div class="hidden sm:block">
+                    <span class="font-bold text-lg text-pink-600 block leading-tight">Chiikawa Exam</span>
+                    <span class="text-xs font-semibold text-purple-600">Ôn Thi THPTQG 2026</span>
+                </div>
+            </div>
+
+            <!-- Desktop Nav Items -->
+            <nav class="hidden lg:flex items-center space-x-1 font-medium text-sm text-slate-700">
+                <button onclick="navigateTo('home')" class="px-3 py-2 rounded-xl hover:bg-pink-100/60 hover:text-pink-600 transition">Trang chủ</button>
+                
+                <!-- Toán Submenu Dropdown -->
+                <div class="relative group">
+                    <button class="px-3 py-2 rounded-xl hover:bg-sky-100/60 hover:text-sky-600 transition flex items-center space-x-1">
+                        <span>Toán</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="absolute top-full left-0 hidden group-hover:block w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-sky-100 p-2 py-3 z-50">
+                        <a href="javascript:void(0)" onclick="navigateTo('math-1')" class="block px-4 py-2 text-sm rounded-xl hover:bg-sky-50 text-slate-700 font-semibold flex items-center justify-between">
+                            <span>Toán - Chuyên đề 1</span>
+                            <span>🔥🔥🔥</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="navigateTo('math-2')" class="block px-4 py-2 text-sm rounded-xl hover:bg-sky-50 text-slate-700 font-semibold flex items-center justify-between">
+                            <span>Toán - Chuyên đề 2</span>
+                            <span>🔥🔥🔥</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="navigateTo('math-3')" class="block px-4 py-2 text-sm rounded-xl hover:bg-sky-50 text-slate-700 font-semibold flex items-center justify-between">
+                            <span>Toán - Chuyên đề 3</span>
+                            <span>🔥🔥🔥</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Văn Submenu Dropdown -->
+                <div class="relative group">
+                    <button class="px-3 py-2 rounded-xl hover:bg-pink-100/60 hover:text-pink-600 transition flex items-center space-x-1">
+                        <span>Văn</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="absolute top-full left-0 hidden group-hover:block w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-pink-100 p-2 py-3 z-50">
+                        <a href="javascript:void(0)" onclick="navigateTo('lit-1')" class="block px-4 py-2 text-sm rounded-xl hover:bg-pink-50 text-slate-700 font-semibold flex items-center justify-between">
+                            <span>Văn - Chuyên đề 1</span>
+                            <span>🔥🔥🔥</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="navigateTo('lit-2')" class="block px-4 py-2 text-sm rounded-xl hover:bg-pink-50 text-slate-700 font-semibold flex items-center justify-between">
+                            <span>Văn - Chuyên đề 2</span>
+                            <span>🔥🔥🔥</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="navigateTo('lit-3')" class="block px-4 py-2 text-sm rounded-xl hover:bg-pink-50 text-slate-700 font-semibold flex items-center justify-between">
+                            <span>Văn - Chuyên đề 3</span>
+                            <span>🔥🔥🔥</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Anh Submenu Dropdown -->
+                <div class="relative group">
+                    <button class="px-3 py-2 rounded-xl hover:bg-purple-100/60 hover:text-purple-600 transition flex items-center space-x-1">
+                        <span>Anh</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="absolute top-full left-0 hidden group-hover:block w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-purple-100 p-2 py-3 z-50">
+                        <a href="javascript:void(0)" onclick="navigateTo('eng-1')" class="block px-4 py-2 text-sm rounded-xl hover:bg-purple-50 text-slate-700 font-semibold flex items-center justify-between">
+                            <span>Anh - Chuyên đề 1</span>
+                            <span>🔥🔥🔥</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="navigateTo('eng-2')" class="block px-4 py-2 text-sm rounded-xl hover:bg-purple-50 text-slate-700 font-semibold flex items-center justify-between">
+                            <span>Anh - Chuyên đề 2</span>
+                            <span>🔥🔥🔥</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="navigateTo('eng-3')" class="block px-4 py-2 text-sm rounded-xl hover:bg-purple-50 text-slate-700 font-semibold flex items-center justify-between">
+                            <span>Anh - Chuyên đề 3</span>
+                            <span>🔥🔥🔥</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sử Submenu Dropdown -->
+                <div class="relative group">
+                    <button class="px-3 py-2 rounded-xl hover:bg-emerald-100/60 hover:text-emerald-600 transition flex items-center space-x-1">
+                        <span>Sử</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="absolute top-full left-0 hidden group-hover:block w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-emerald-100 p-2 py-3 z-50">
+                        <a href="javascript:void(0)" onclick="navigateTo('his-1')" class="block px-4 py-2 text-sm rounded-xl hover:bg-emerald-50 text-slate-700 font-semibold flex items-center justify-between">
+                            <span>Sử - Chuyên đề 1</span>
+                            <span>🔥🔥🔥</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="navigateTo('his-2')" class="block px-4 py-2 text-sm rounded-xl hover:bg-emerald-50 text-slate-700 font-semibold flex items-center justify-between">
+                            <span>Sử - Chuyên đề 2</span>
+                            <span>🔥🔥🔥</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="navigateTo('his-3')" class="block px-4 py-2 text-sm rounded-xl hover:bg-emerald-50 text-slate-700 font-semibold flex items-center justify-between">
+                            <span>Sử - Chuyên đề 3</span>
+                            <span>🔥🔥🔥</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Thư viện Dropdown -->
+                <div class="relative group">
+                    <button class="px-3 py-2 rounded-xl hover:bg-amber-100/60 hover:text-amber-700 transition flex items-center space-x-1">
+                        <span>Thư viện</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="absolute top-full left-0 hidden group-hover:block w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-pink-100 p-2 py-3 z-50">
+                        <a href="#" onclick="navigateTo('library-exam')" class="block px-4 py-2 text-sm rounded-xl hover:bg-pink-50 text-slate-700">Đề thi mẫu</a>
+                        <a href="#" onclick="navigateTo('library-ebook')" class="block px-4 py-2 text-sm rounded-xl hover:bg-purple-50 text-slate-700">Sách E-Book</a>
+                        <a href="#" onclick="navigateTo('library-docs')" class="block px-4 py-2 text-sm rounded-xl hover:bg-sky-50 text-slate-700">Tài liệu tổng hợp</a>
+                    </div>
+                </div>
+
+                <button onclick="navigateTo('exam')" class="px-3 py-2 rounded-xl hover:bg-rose-100/60 hover:text-rose-600 transition">Thi thử</button>
+                <button onclick="navigateTo('studygroup')" class="px-3 py-2 rounded-xl hover:bg-indigo-100/60 hover:text-indigo-600 transition">Phòng học nhóm</button>
+                <button onclick="navigateTo('ai')" class="px-3 py-2 rounded-xl hover:bg-teal-100/60 hover:text-teal-600 transition flex items-center space-x-1">
+                    <span>Chiikawa AI</span>
+                    <span class="bg-pink-400 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">New</span>
+                </button>
+            </nav>
+
+            <!-- User Widget -->
+            <div class="flex items-center space-x-3">
+                <button onclick="navigateTo('profile')" class="flex items-center space-x-2 bg-white border border-pink-200 rounded-full p-1.5 pr-3 shadow-sm hover:shadow transition">
+                    <img src="https://cdn.phototourl.com/member/2026-10-19-29e84aae-f692-4bca-afc0-d7d802e3f935.png" onerror="this.onerror=null; this.src='https://placehold.co/80x80/fce7f3/db2777?text=S';" class="w-8 h-8 rounded-full border border-pink-300 object-cover" alt="Avatar">
+                    <div class="text-left hidden sm:block">
+                        <p class="text-xs font-bold text-slate-800">Sĩ tử 2026</p>
+                        <p class="text-[10px] text-pink-600 font-semibold">Quyết tâm đậu NV1</p>
+                    </div>
+                </button>
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl bg-pink-100 text-pink-700 focus:outline-none">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-drawer" class="hidden lg:hidden bg-white/95 border-b border-pink-100 px-4 py-4 space-y-3 shadow-lg max-h-[80vh] overflow-y-auto">
+            <button onclick="navigateTo('home'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 rounded-xl hover:bg-pink-50 font-medium">Trang chủ</button>
+            
+            <!-- Mobile Math Section -->
+            <div class="space-y-1 bg-sky-50/50 p-2 rounded-2xl border border-sky-100">
+                <p class="text-xs font-bold text-sky-600 px-2 pt-1 uppercase tracking-wider">Toán học</p>
+                <button onclick="navigateTo('math-1'); toggleMobileMenu();" class="w-full text-left px-3 py-1.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-sky-100 flex items-center justify-between">
+                    <span>Toán - Chuyên đề 1</span>
+                    <span>🔥🔥🔥</span>
+                </button>
+                <button onclick="navigateTo('math-2'); toggleMobileMenu();" class="w-full text-left px-3 py-1.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-sky-100 flex items-center justify-between">
+                    <span>Toán - Chuyên đề 2</span>
+                    <span>🔥🔥🔥</span>
+                </button>
+                <button onclick="navigateTo('math-3'); toggleMobileMenu();" class="w-full text-left px-3 py-1.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-sky-100 flex items-center justify-between">
+                    <span>Toán - Chuyên đề 3</span>
+                    <span>🔥🔥🔥</span>
+                </button>
+            </div>
+
+            <!-- Mobile Lit Section -->
+            <div class="space-y-1 bg-pink-50/50 p-2 rounded-2xl border border-pink-100">
+                <p class="text-xs font-bold text-pink-600 px-2 pt-1 uppercase tracking-wider">Ngữ Văn</p>
+                <button onclick="navigateTo('lit-1'); toggleMobileMenu();" class="w-full text-left px-3 py-1.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-pink-100 flex items-center justify-between">
+                    <span>Văn - Chuyên đề 1</span>
+                    <span>🔥🔥🔥</span>
+                </button>
+                <button onclick="navigateTo('lit-2'); toggleMobileMenu();" class="w-full text-left px-3 py-1.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-pink-100 flex items-center justify-between">
+                    <span>Văn - Chuyên đề 2</span>
+                    <span>🔥🔥🔥</span>
+                </button>
+                <button onclick="navigateTo('lit-3'); toggleMobileMenu();" class="w-full text-left px-3 py-1.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-pink-100 flex items-center justify-between">
+                    <span>Văn - Chuyên đề 3</span>
+                    <span>🔥🔥🔥</span>
+                </button>
+            </div>
+
+            <!-- Mobile Eng Section -->
+            <div class="space-y-1 bg-purple-50/50 p-2 rounded-2xl border border-purple-100">
+                <p class="text-xs font-bold text-purple-600 px-2 pt-1 uppercase tracking-wider">Tiếng Anh</p>
+                <button onclick="navigateTo('eng-1'); toggleMobileMenu();" class="w-full text-left px-3 py-1.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-purple-100 flex items-center justify-between">
+                    <span>Anh - Chuyên đề 1</span>
+                    <span>🔥🔥🔥</span>
+                </button>
+                <button onclick="navigateTo('eng-2'); toggleMobileMenu();" class="w-full text-left px-3 py-1.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-purple-100 flex items-center justify-between">
+                    <span>Anh - Chuyên đề 2</span>
+                    <span>🔥🔥🔥</span>
+                </button>
+                <button onclick="navigateTo('eng-3'); toggleMobileMenu();" class="w-full text-left px-3 py-1.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-purple-100 flex items-center justify-between">
+                    <span>Anh - Chuyên đề 3</span>
+                    <span>🔥🔥🔥</span>
+                </button>
+            </div>
+
+            <!-- Mobile History Section -->
+            <div class="space-y-1 bg-emerald-50/50 p-2 rounded-2xl border border-emerald-100">
+                <p class="text-xs font-bold text-emerald-600 px-2 pt-1 uppercase tracking-wider">Lịch Sử</p>
+                <button onclick="navigateTo('his-1'); toggleMobileMenu();" class="w-full text-left px-3 py-1.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-100 flex items-center justify-between">
+                    <span>Sử - Chuyên đề 1</span>
+                    <span>🔥🔥🔥</span>
+                </button>
+                <button onclick="navigateTo('his-2'); toggleMobileMenu();" class="w-full text-left px-3 py-1.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-100 flex items-center justify-between">
+                    <span>Sử - Chuyên đề 2</span>
+                    <span>🔥🔥🔥</span>
+                </button>
+                <button onclick="navigateTo('his-3'); toggleMobileMenu();" class="w-full text-left px-3 py-1.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-100 flex items-center justify-between">
+                    <span>Sử - Chuyên đề 3</span>
+                    <span>🔥🔥🔥</span>
+                </button>
+            </div>
+
+            <button onclick="navigateTo('exam'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 rounded-xl bg-rose-50 text-rose-600 font-semibold">Bắt đầu thi thử</button>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-24 pb-12 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- SECTION 1: HOME -->
+        <section id="sec-home" class="space-y-10">
+            <!-- Hero Banner 3D -->
+            <div class="relative rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-gradient-to-r from-sky-100 via-pink-100 to-purple-100 p-6 md:p-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div class="lg:col-span-7 space-y-4">
+                        <span class="inline-block px-4 py-1.5 rounded-full bg-white/80 text-pink-600 text-xs font-bold shadow-sm">Bứt phá điểm số TN THPT 2026</span>
+                        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-800 leading-tight">
+                            Chinh Phục Kỳ Thi <br><span class="text-pink-500">Cùng Chiikawa & Bè Bạn</span>
+                        </h1>
+                        <p class="text-base md:text-lg text-slate-600 font-medium">Hệ thống ôn luyện thông minh, kho đề thi bám sát cấu trúc mới nhất giúp bạn tự tin đạt điểm cao!</p>
+                        
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <button onclick="navigateTo('math')" class="px-6 py-3 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold shadow-lg shadow-pink-200 clay-btn flex items-center space-x-2">
+                                <span>Vào Bài Học</span>
+                            </button>
+                            <button onclick="navigateTo('exam')" class="px-6 py-3 rounded-2xl bg-sky-400 hover:bg-sky-500 text-white font-bold shadow-lg shadow-sky-200 clay-btn flex items-center space-x-2">
+                                <span>Thi Thử Ngay</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 relative">
+                        <!-- THAY ĐỔI ĐƯỜNG DẪN BANNER TẠI SRC -->
+                        <img src="https://cdn.phototourl.com/member/2026-10-19-f6fc716e-c6fa-4348-b739-15896fc689c8.png" alt="Chiikawa Banner 3D" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e0f2fe/0284c7?text=Chiikawa+Banner';" class="w-full h-auto rounded-2xl object-cover shadow-lg border-2 border-white">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Countdown Widget -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-clay-card border border-sky-100 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-1 text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start space-x-2 text-sky-600 font-bold">
+                        <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                        <span>Đếm ngược ngày thi</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800">Kỳ Thi TN THPTQG 2026</h3>
+                    <p class="text-xs text-slate-500">Dự kiến diễn ra ngày 11/06/2026</p>
+                </div>
+
+                <div class="grid grid-cols-4 gap-3 text-center">
+                    <div class="bg-sky-50 p-3 rounded-2xl border border-sky-100 min-w-[70px]">
+                        <span id="cd-days" class="block text-2xl md:text-3xl font-extrabold text-sky-600">00</span>
+                        <span class="text-[10px] text-slate-500 font-bold uppercase">Ngày</span>
+                    </div>
+                    <div class="bg-pink-50 p-3 rounded-2xl border border-pink-100 min-w-[70px]">
+                        <span id="cd-hours" class="block text-2xl md:text-3xl font-extrabold text-pink-600">00</span>
+                        <span class="text-[10px] text-slate-500 font-bold uppercase">Giờ</span>
+                    </div>
+                    <div class="bg-purple-50 p-3 rounded-2xl border border-purple-100 min-w-[70px]">
+                        <span id="cd-mins" class="block text-2xl md:text-3xl font-extrabold text-purple-600">00</span>
+                        <span class="text-[10px] text-slate-500 font-bold uppercase">Phút</span>
+                    </div>
+                    <div class="bg-amber-50 p-3 rounded-2xl border border-amber-100 min-w-[70px]">
+                        <span id="cd-secs" class="block text-2xl md:text-3xl font-extrabold text-amber-600">00</span>
+                        <span class="text-[10px] text-slate-500 font-bold uppercase">Giây</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div onclick="navigateTo('math-1')" class="bg-sky-50 hover:bg-sky-100/80 p-6 rounded-3xl border border-sky-200 transition cursor-pointer shadow-sm">
+                    <div class="w-12 h-12 bg-sky-400 text-white rounded-2xl flex items-center justify-center font-bold text-xl mb-4">📐</div>
+                    <h3 class="font-bold text-lg text-slate-800">Toán Học</h3>
+                    <p class="text-xs text-slate-600 mt-1">Luyện công thức & dạng toán trọng tâm 2026 🔥🔥🔥</p>
+                </div>
+                <div onclick="navigateTo('lit-1')" class="bg-pink-50 hover:bg-pink-100/80 p-6 rounded-3xl border border-pink-200 transition cursor-pointer shadow-sm">
+                    <div class="w-12 h-12 bg-pink-400 text-white rounded-2xl flex items-center justify-center font-bold text-xl mb-4">📖</div>
+                    <h3 class="font-bold text-lg text-slate-800">Ngữ Văn</h3>
+                    <p class="text-xs text-slate-600 mt-1">Tổng hợp sơ đồ tư duy tác phẩm & dàn ý chi tiết 🔥🔥🔥</p>
+                </div>
+                <div onclick="navigateTo('eng-1')" class="bg-purple-50 hover:bg-purple-100/80 p-6 rounded-3xl border border-purple-200 transition cursor-pointer shadow-sm">
+                    <div class="w-12 h-12 bg-purple-400 text-white rounded-2xl flex items-center justify-center font-bold text-xl mb-4">🔤</div>
+                    <h3 class="font-bold text-lg text-slate-800">Tiếng Anh</h3>
+                    <p class="text-xs text-slate-600 mt-1">Từ vựng & ngữ pháp trọng tâm 2026 🔥🔥🔥</p>
+                </div>
+                <div onclick="navigateTo('his-1')" class="bg-emerald-50 hover:bg-emerald-100/80 p-6 rounded-3xl border border-emerald-200 transition cursor-pointer shadow-sm">
+                    <div class="w-12 h-12 bg-emerald-400 text-white rounded-2xl flex items-center justify-center font-bold text-xl mb-4">📜</div>
+                    <h3 class="font-bold text-lg text-slate-800">Lịch Sử</h3>
+                    <p class="text-xs text-slate-600 mt-1">Trục thời gian các sự kiện quan trọng 🔥🔥🔥</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION DYNAMIC SUB-PAGES (CHUYÊN ĐỀ CON) -->
+        <section id="sec-subpage" class="hidden space-y-6">
+            <div class="flex items-center space-x-3 text-slate-500 text-sm mb-2">
+                <button onclick="navigateTo('home')" class="hover:text-pink-600 font-semibold flex items-center space-x-1">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    <span>Trở về Trang chủ</span>
+                </button>
+            </div>
+            <div class="bg-white rounded-3xl p-8 border border-pink-100 shadow-sm min-h-[400px] flex flex-col justify-between">
+                <div>
+                    <span id="subpage-badge" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-pink-100 text-pink-700 inline-block mb-3">
+                        Nội dung chuyên đề 🔥🔥🔥
+                    </span>
+                    <h2 id="subpage-title" class="text-3xl font-extrabold text-slate-800 mb-2">Tiêu đề chuyên đề</h2>
+                    <p id="subpage-desc" class="text-sm text-slate-500">Trang nội dung chi tiết đang được xây dựng...</p>
+                </div>
+
+                <div class="border-2 border-dashed border-slate-200 rounded-2xl p-12 text-center my-8 bg-slate-50/50">
+                    <div class="text-4xl mb-3">📝✨</div>
+                    <h3 class="text-slate-700 font-bold text-lg">Trang nội dung trống</h3>
+                    <p class="text-slate-500 text-xs mt-1">Sẵn sàng để cập nhật bài học, câu hỏi luyện tập và tài liệu ôn thi.</p>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100 text-xs text-slate-400">
+                    <span>Chiikawa Exam 2026</span>
+                    <span>Trạng thái: Đã sẵn sàng</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Lucide Icons Initialization
+        lucide.createIcons();
+
+        // Toggle Mobile Menu Drawer
+        function toggleMobileMenu() {
+            const drawer = document.getElementById('mobile-drawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        // Title mapping for subpages
+        const subpageNames = {
+            'math-1': 'Toán - Chuyên đề 1: Hàm số và Đồ thị',
+            'math-2': 'Toán - Chuyên đề 2: Tích phân & Ứng dụng',
+            'math-3': 'Toán - Chuyên đề 3: Hình học Không gian',
+            'lit-1': 'Văn - Chuyên đề 1: Luyện viết Đoạn văn Nghị luận',
+            'lit-2': 'Văn - Chuyên đề 2: Phân tích Tác phẩm Thơ',
+            'lit-3': 'Văn - Chuyên đề 3: Phân tích Tác phẩm Văn xuôi',
+            'eng-1': 'Anh - Chuyên đề 1: Ngữ pháp Trọng tâm 2026',
+            'eng-2': 'Anh - Chuyên đề 2: Từ vựng theo Chủ đề',
+            'eng-3': 'Anh - Chuyên đề 3: Kỹ năng Đọc hiểu',
+            'his-1': 'Sử - Chuyên đề 1: Lịch sử Việt Nam hiện đại',
+            'his-2': 'Sử - Chuyên đề 2: Lịch sử Thế giới 1945 - nay',
+            'his-3': 'Sử - Chuyên đề 3: Phương pháp Nhớ nhanh Sự kiện'
+        };
+
+        // Dynamic Navigation Handler
+        function navigateTo(page) {
+            console.log("Navigating to page:", page);
+            
+            // Hide all sections
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+
+            if (page === 'home') {
+                document.getElementById('sec-home').classList.remove('hidden');
+            } else if (subpageNames[page]) {
+                // Display dynamic blank subpage
+                document.getElementById('sec-subpage').classList.remove('hidden');
+                document.getElementById('subpage-title').innerText = subpageNames[page];
+                document.getElementById('subpage-desc').innerText = `Khu vực nội dung chuyên sâu dành cho ${subpageNames[page]}.`;
+            } else {
+                // Fallback for general navigation
+                document.getElementById('sec-subpage').classList.remove('hidden');
+                document.getElementById('subpage-title').innerText = `Mục: ${page.toUpperCase()}`;
+                document.getElementById('subpage-desc').innerText = "Trang trống sẵn sàng để thêm nội dung.";
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Countdown Timer Logic
+        function updateCountdown() {
+            const targetDate = new Date('June 11, 2026 00:00:00').getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
+                document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('cd-mins').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('cd-secs').innerText = String(seconds).padStart(2, '0');
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
